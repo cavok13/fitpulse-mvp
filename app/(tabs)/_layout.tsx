@@ -36,6 +36,10 @@ export default function TabLayout() {
           <Ionicons name={isPremium ? 'diamond' : 'diamond-outline'} size={size} color={isPremium ? Colors.xpGold : color} />
         ),
       }} />
+      <Tabs.Screen name="settings" options={{
+        title: 'Settings',
+        tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" size={size} color={color} />,
+      }} />
     </Tabs>
   );
 }

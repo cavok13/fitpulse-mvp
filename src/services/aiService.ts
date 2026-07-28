@@ -1,8 +1,9 @@
 // AI Service for Meal Analysis and Workout Suggestions
 // Uses OpenAI-compatible API for food recognition and fitness coaching
 
+import { useSettingsStore } from '../store/useSettingsStore';
+
 const AI_API_URL = 'https://api.openai.com/v1/chat/completions';
-const AI_API_KEY = ''; // User sets this in settings
 
 export interface MealAnalysis {
   name: string;
@@ -38,7 +39,7 @@ export interface AIAnalysisResult {
 
 // Analyze meal from text description
 export async function analyzeMealFromText(description: string): Promise<MealAnalysis> {
-  if (!AI_API_KEY) {
+  if (!useSettingsStore.getState().openAiApiKey) {
     return getLocalMealEstimate(description);
   }
 
@@ -47,7 +48,7 @@ export async function analyzeMealFromText(description: string): Promise<MealAnal
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${AI_API_KEY}`,
+        'Authorization': `Bearer ${useSettingsStore.getState().openAiApiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
@@ -90,7 +91,7 @@ Be accurate but conservative with estimates. If uncertain, say so in confidence.
 
 // Analyze meal from image (base64)
 export async function analyzeMealFromImage(base64Image: string): Promise<MealAnalysis> {
-  if (!AI_API_KEY) {
+  if (!useSettingsStore.getState().openAiApiKey) {
     return {
       name: 'Photo meal',
       calories: 400,
@@ -108,7 +109,7 @@ export async function analyzeMealFromImage(base64Image: string): Promise<MealAna
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${AI_API_KEY}`,
+        'Authorization': `Bearer ${useSettingsStore.getState().openAiApiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-4o',
@@ -166,7 +167,7 @@ export async function analyzeWorkoutPatterns(
     experience?: string;
   }
 ): Promise<AIAnalysisResult> {
-  if (!AI_API_KEY) {
+  if (!useSettingsStore.getState().openAiApiKey) {
     return getLocalWorkoutAnalysis(workoutHistory, userProfile);
   }
 
@@ -175,7 +176,7 @@ export async function analyzeWorkoutPatterns(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${AI_API_KEY}`,
+        'Authorization': `Bearer ${useSettingsStore.getState().openAiApiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
