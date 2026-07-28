@@ -20,14 +20,20 @@
 | src/services/workoutCalories.ts | CREATE | pending | - | - | - |
 
 ## Active Sessions
-- [ ] ses_1 (Worker): `src/store/useSettingsStore.ts` - pending
-- [ ] ses_1 (Worker): `src/services/nutritionApi.ts` - pending
-- [ ] ses_1 (Worker): `src/services/aiService.ts` - pending
-- [ ] ses_1 (Worker): `app/(tabs)/settings.tsx` - pending
-- [ ] ses_1 (Worker): `app/(tabs)/_layout.tsx` - pending
+- [x] ses_1 (Worker): `src/store/useSettingsStore.ts` - done
+- [x] ses_1 (Worker): `src/services/nutritionApi.ts` - done
+- [x] ses_1 (Worker): `src/services/aiService.ts` - done
+- [x] ses_1 (Worker): `app/(tabs)/settings.tsx` - done
+- [x] ses_1 (Worker): `app/(tabs)/_layout.tsx` - done
 
 ## Completed Units
-(none yet)
+| File | Action | Status | Worker | Unit Test | Timestamp |
+|------|--------|--------|--------|-----------|-----------|
+| src/store/useSettingsStore.ts | CREATE | done | ses_1 | n/a (store) | 2026-07-28T21:51:00 |
+| src/services/nutritionApi.ts | MODIFY | done | ses_1 | n/a | 2026-07-28T21:51:00 |
+| src/services/aiService.ts | MODIFY | done | ses_1 | n/a | 2026-07-28T21:51:00 |
+| app/(tabs)/settings.tsx | CREATE | done | ses_1 | n/a | 2026-07-28T21:51:00 |
+| app/(tabs)/_layout.tsx | MODIFY | done | ses_1 | n/a | 2026-07-28T21:51:00 |
 
 ## Sync Issues
 - SYNC-1: Worker `task_c26b7c8a` failed to expand food DB (see .opencode/sync-issues.md)
