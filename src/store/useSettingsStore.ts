@@ -1,5 +1,14 @@
 import { create } from 'zustand';
 
+// Try to load local development keys (gitignored, not committed)
+let localKeys: { groqApiKey?: string; usdaApiKey?: string; openAiApiKey?: string } = {};
+try {
+  // This file is gitignored - exists only for local development
+  localKeys = require('../config/keys.local').LOCAL_KEYS || {};
+} catch {
+  // File doesn't exist - that's fine, use empty defaults
+}
+
 export type AiProvider = 'groq' | 'openai' | 'local';
 
 export interface AiModelConfig {
@@ -45,23 +54,23 @@ interface SettingsState {
 
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   // Default to Groq (free, open-source)
-  aiProvider: 'groq',
+  aiProvider: localKeys.groqApiKey ? 'groq' : 'local',
   setAiProvider: (provider) => set({ aiProvider: provider }),
 
   // Groq
-  groqApiKey: '',
+  groqApiKey: localKeys.groqApiKey || '',
   groqModel: 'llama-3.3-70b-versatile',
   setGroqApiKey: (key) => set({ groqApiKey: key }),
   setGroqModel: (model) => set({ groqModel: model }),
   hasGroqKey: () => get().groqApiKey.length > 0,
 
   // OpenAI
-  openAiApiKey: '',
+  openAiApiKey: localKeys.openAiApiKey || '',
   setOpenAiApiKey: (key) => set({ openAiApiKey: key }),
   hasOpenAiKey: () => get().openAiApiKey.length > 0,
 
   // USDA
-  usdaApiKey: '',
+  usdaApiKey: localKeys.usdaApiKey || '',
   setUsdaApiKey: (key) => set({ usdaApiKey: key }),
   hasUsdaKey: () => get().usdaApiKey.length > 0,
 
